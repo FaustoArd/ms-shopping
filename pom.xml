@@ -9,9 +9,23 @@
   <groupId>com.lord</groupId>
   <artifactId>msshop</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Microservices Shop app</name>
+  <name>Microservices Shopp app</name>
    <packaging>pom</packaging>
    <modules>
    	<module>security-service</module>
    </modules>
+   <dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+    <build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
