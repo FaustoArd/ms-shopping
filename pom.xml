@@ -15,15 +15,13 @@
    	<module>security-service</module>
    	<module>discovery-server</module>
    	<module>product-service</module>
+   	<module>api-gateway</module>
    </modules>
    <properties>
     <spring-cloud.version>2023.0.0</spring-cloud.version>
 </properties>
 <dependencies>
-	 <dependency>
-		 <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
+	
     <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 <dependency>
     <groupId>com.google.code.gson</groupId>
