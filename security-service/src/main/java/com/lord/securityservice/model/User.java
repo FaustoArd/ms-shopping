@@ -108,6 +108,10 @@ public class User implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.authorities;
 	}
+	
+	public void setAuthorities(Set<Role> authorities) {
+		this.authorities = authorities;
+	}
 
 	public Long getId() {
 		return this.id;
