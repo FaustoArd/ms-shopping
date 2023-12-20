@@ -66,9 +66,9 @@ public class SecurityConfiguration {
 		});
 		
 		http.oauth2ResourceServer(oauth -> {
-			oauth.jwt(jwt -> {
-				jwt.jwtAuthenticationConverter(jwtAuthenticationConverter());
-				});
+			oauth.jwt(jwt ->
+				jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+				);
 		});
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
