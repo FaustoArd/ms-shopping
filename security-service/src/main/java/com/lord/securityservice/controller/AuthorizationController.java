@@ -42,9 +42,9 @@ public class AuthorizationController {
 	}
 
 	@GetMapping("/login")
-	ResponseEntity<LoginResponseDto> loginUser(@RequestBody LoginDto loginDto) {
+	ResponseEntity<String> loginUser(@RequestBody LoginDto loginDto) {
 		LoginResponseDto loginResponseDto = authenticationService.loginUser(loginDto);
-		return new ResponseEntity<LoginResponseDto>(loginResponseDto, HttpStatus.OK);
+		return new ResponseEntity<String>(gson.toJson(loginResponseDto.getJwtToken()), HttpStatus.OK);
 	}
 
 }
