@@ -43,12 +43,12 @@ public class SecurityConfiguration {
 		.authorizeExchange(exchange -> {
 			exchange.pathMatchers("/eureka/**").permitAll();
 			exchange.pathMatchers("/api/authorization/**").permitAll();
-			exchange.anyExchange().authenticated();
+			exchange.anyExchange().permitAll();
 			
 		});
 	
-		serverHttp.oauth2ResourceServer(oauth2 -> oauth2
-				.jwt(jwt -> jwt.jwtAuthenticationConverter(reactiveJwtConverter())));
+		/*serverHttp.oauth2ResourceServer(oauth2 -> oauth2
+				.jwt(jwt -> jwt.jwtAuthenticationConverter(reactiveJwtConverter())));*/
 		
 		
 		return serverHttp.build();
