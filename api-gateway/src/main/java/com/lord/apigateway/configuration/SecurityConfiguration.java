@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity.OAuth2ResourceServerSpec;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -43,12 +44,11 @@ public class SecurityConfiguration {
 		.authorizeExchange(exchange -> {
 			exchange.pathMatchers("/eureka/**").permitAll();
 			exchange.pathMatchers("/api/authorization/**").permitAll();
-			exchange.anyExchange().permitAll();
+			exchange.anyExchange().authenticated();
 			
 		});
 	
-		/*serverHttp.oauth2ResourceServer(oauth2 -> oauth2
-				.jwt(jwt -> jwt.jwtAuthenticationConverter(reactiveJwtConverter())));*/
+		serverHttp.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwkSetUri("http://localhost:9000/login")));
 		
 		
 		return serverHttp.build();
@@ -71,12 +71,12 @@ public class SecurityConfiguration {
 	}*/
 	
 	
-	ReactiveJwtAuthenticationConverter reactiveJwtConverter() {
+	/*ReactiveJwtAuthenticationConverter reactiveJwtConverter() {
 		JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 		jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
 	jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
 		ReactiveJwtAuthenticationConverter reactiveJwtConverter  = new ReactiveJwtAuthenticationConverter();
 		reactiveJwtConverter.setJwtGrantedAuthoritiesConverter(new ReactiveJwtGrantedAuthoritiesConverterAdapter(jwtGrantedAuthoritiesConverter));
 		return reactiveJwtConverter;
-	}
+	}*/
 }
