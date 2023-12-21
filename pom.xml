@@ -17,6 +17,7 @@
    	<module>product-service</module>
    	<module>api-gateway</module>
    	<module>category-service</module>
+   	<module>stock-service</module>
    </modules>
    <properties>
     <spring-cloud.version>2023.0.0</spring-cloud.version>

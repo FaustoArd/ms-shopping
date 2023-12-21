@@ -1,5 +1,7 @@
 package com.lord.productservice.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,6 +19,12 @@ public class Product {
 	
 	@Column(name="product_name")
 	private String name;
+	
+	@Column(name="product_id_code")
+	private UUID productIdCode;
+	
+	@Column(name="category_id")
+	private Long categoryId;
 	
 	public Product() {
 		
@@ -36,6 +44,20 @@ public class Product {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public UUID getProductIdCode() {
+		return productIdCode;
+	}
+	public void setProductIdCode(UUID productIdCode) {
+		this.productIdCode = productIdCode;
+	}
+	
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryIdC(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 	
 	
