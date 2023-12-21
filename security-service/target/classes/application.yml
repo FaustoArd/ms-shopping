@@ -11,7 +11,7 @@ spring:
     name: security-service
  
 server: 
-  port: 8081
+  port: 9000
 eureka: 
   client: 
     serviceUrl:
