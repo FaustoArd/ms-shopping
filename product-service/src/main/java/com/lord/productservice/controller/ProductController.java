@@ -33,21 +33,21 @@ public class ProductController {
 		this.productService = productService;
 	}
 	
-	@GetMapping("/by_id_code/{productIdCode}")
-	ResponseEntity<ProductDto> findByIdCode(@PathVariable("productIdCode")String productIdCode){
-		ProductDto productDto = productService.findByIdCode(productIdCode);
+	@GetMapping("/by_id/{productId}")
+	ResponseEntity<ProductDto> findById(@PathVariable("productId")Long productId){
+		ProductDto productDto = productService.findById(productId);
 		return new ResponseEntity<ProductDto>(productDto,HttpStatus.OK);
 	}
 
 	@PostMapping("/")
 	ResponseEntity<String> saveProduct(@RequestBody ProductDto productDto, @RequestParam("categoryId") Long categoryId){
-		String productIdCode = productService.save(productDto,categoryId);
-		return new ResponseEntity<String>(gson.toJson(productIdCode + " Date: " + Calendar.getInstance().getTime()), HttpStatus.CREATED);
+		Long productId = productService.save(productDto,categoryId);
+		return new ResponseEntity<String>(gson.toJson("Product saved. Id: " + productId + " Date: " + Calendar.getInstance().getTime()), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/is_available")
-	ResponseEntity<Boolean> isAvailable(@RequestParam("productIdCode") String productIdCode){
-		return new ResponseEntity<Boolean>(productService.isAvailable(productIdCode),HttpStatus.OK);
+	ResponseEntity<Boolean> isAvailable(@RequestParam("productId") Long productId){
+		return new ResponseEntity<Boolean>(productService.isAvailable(productId),HttpStatus.OK);
 	}
 	
 	

@@ -1,6 +1,6 @@
 package com.lord.stockservice.mapper;
 
-import java.util.UUID;
+
 
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ public class StockMapper {
 		}
 		Stock stock = new Stock();
 		stock.setQuantity(stockDto.getQuantity());
-		stock.setProductIdCode(UUID.fromString(stockDto.getProductIdCode()));
+		stock.setProductId(stockDto.getProductId());
 		return stock;
 	}
 	
@@ -27,7 +27,7 @@ public class StockMapper {
 		StockDto stockDto = new StockDto();
 		stockDto.setId(stockDto.getId());
 		stockDto.setQuantity(stock.getQuantity());
-		stockDto.setProductIdCode(stock.getProductIdCode().toString());
+		stockDto.setProductId(stock.getProductId());
 		return stockDto;
 	}
 	

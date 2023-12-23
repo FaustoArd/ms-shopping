@@ -9,7 +9,7 @@ public class StockDto {
 	
 	private int quantity;
 	
-	private String productIdCode;
+	private Long productId;
 	
 	public Long getId() {
 		return id;
@@ -27,12 +27,12 @@ public class StockDto {
 		this.quantity = quantity;
 	}
 	
-	public String getProductIdCode() {
-		return productIdCode;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setProductIdCode(String productIdCode) {
-		this.productIdCode = productIdCode;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 

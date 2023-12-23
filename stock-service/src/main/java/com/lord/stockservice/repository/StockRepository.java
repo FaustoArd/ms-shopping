@@ -9,5 +9,5 @@ import com.lord.stockservice.model.Stock;
 
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-	public Optional<Stock> findByProductIdCode(UUID productIdCode);
+	public Optional<Stock> findByProductId(Long productId);
 }

@@ -1,14 +1,12 @@
 package com.lord.productservice.dto;
 
-import java.util.UUID;
+
 
 public class ProductDto {
 
 	private Long id;
 
 	private String name;
-
-	private UUID productIdCode;
 
 	private Long categoryId;
 
@@ -46,14 +44,6 @@ public class ProductDto {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public UUID getProductIdCode() {
-		return productIdCode;
-	}
-
-	public void setProductIdCode(UUID productIdCode) {
-		this.productIdCode = productIdCode;
 	}
 
 	public Long getCategoryId() {

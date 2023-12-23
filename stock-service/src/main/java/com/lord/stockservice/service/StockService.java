@@ -11,7 +11,7 @@ public interface StockService {
 	
 	public Stock findById(Long id);
 	
-	public StockDto findByProductIdCode(String productIdCode);
+	public StockDto findByProductId(Long productId);
 	
 
 	

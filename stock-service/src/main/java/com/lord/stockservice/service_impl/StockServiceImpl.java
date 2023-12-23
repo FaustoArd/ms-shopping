@@ -39,8 +39,8 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public StockDto findByProductIdCode(String productIdCode) {
-	Stock stock =  stockRepository.findByProductIdCode(UUID.fromString(productIdCode)).orElseThrow(()-> new RuntimeException("Stock not found"));
+	public StockDto findByProductId(Long productId) {
+	Stock stock =  stockRepository.findByProductId(productId).orElseThrow(()-> new RuntimeException("Stock not found"));
 	return stockMapper.toStockDto(stock);
 	}
 

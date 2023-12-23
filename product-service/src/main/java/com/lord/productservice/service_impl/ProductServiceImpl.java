@@ -31,9 +31,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDto findByIdCode(String productIdCode) {
-		int quantity = findStock(productIdCode);
-		Product product = productRepository.findByProductIdCode(UUID.fromString(productIdCode))
+	public ProductDto findById(Long id) {
+		int quantity = findStock(id);
+		Product product = productRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Product Not found"));
 		ProductDto productDto = ProductMapper.INSTANCE.toProductDto(product);
 		productDto.setQuantity(quantity);
@@ -47,13 +47,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public String save(ProductDto productDto, Long catedoryId) {
+	public Long save(ProductDto productDto, Long catedoryId) {
 		Product product = new Product();
 		product.setName(productDto.getName());
-		product.setProductIdCode(UUID.randomUUID());
 		product.setCategoryId(catedoryId);
 		
-		return productRepository.save(product).getProductIdCode().toString();
+		return productRepository.save(product).getId();
 
 	}
 
@@ -63,15 +62,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public boolean isAvailable(String productIdCode) {
-		return productRepository.findByProductIdCode(UUID.fromString(productIdCode)).get().isAvailable();
+	public boolean isAvailable(Long productId) {
+		return productRepository.findById(productId).get().isAvailable();
 
 	}
 
 	@Override
-	public int findStock(String productIdCode) {
+	public int findStock(Long productId) {
 	
-		return this.webClient.get().uri("api/stock/by-product-id-code/{productIdCode}", productIdCode)
+		return this.webClient.get().uri("api/stock/by-product-id-code/{productIdCode}", productId)
 				.accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(StockDto.class).block().getQuantity();
 	
 

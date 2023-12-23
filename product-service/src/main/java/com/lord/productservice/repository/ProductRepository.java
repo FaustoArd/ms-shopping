@@ -11,6 +11,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	public Optional<Product> findByCategoryId(Long  categoryId);
 	
-	public Optional<Product> findByProductIdCode(UUID productIdCode);
+	
 
 }

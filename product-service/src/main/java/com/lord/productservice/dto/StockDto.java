@@ -8,7 +8,7 @@ public class StockDto {
 
 	private int quantity;
 	
-	private UUID productIdCode;
+	private Long productId;
 	
 	public int getQuantity() {
 		return quantity;
@@ -27,12 +27,12 @@ public class StockDto {
 
 
 
-	public UUID getProductIdCode() {
-		return productIdCode;
+	public Long ProductId() {
+		return productId;
 	}
 
-	public void setProductIdCode(UUID productIdCode) {
-		this.productIdCode = productIdCode;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 

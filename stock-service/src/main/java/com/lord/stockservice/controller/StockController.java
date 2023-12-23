@@ -36,15 +36,15 @@ public class StockController {
 	 
 	@PostMapping("/")
 	ResponseEntity<String> save(@RequestBody StockDto stockDto){
-		System.out.println(stockDto.getProductIdCode());
+	
 	Stock stock = stockMapper.toStock(stockDto);
 	stockService.save(stock);
 	return new ResponseEntity<String>(new Gson().toJson("Stock saved: " + Calendar.getInstance().getTime()),HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/by-product-id-code/{productIdCode}")
-	ResponseEntity<StockDto> findByProductIdCode(@PathVariable("productIdCode")String productIdCode){
-		StockDto stockDto = stockService.findByProductIdCode(productIdCode);
+	@GetMapping("/by-product-id-code/{productId}")
+	ResponseEntity<StockDto> findByProductId(@PathVariable("productId")Long productId){
+		StockDto stockDto = stockService.findByProductId(productId);
 		return ResponseEntity.ok(stockDto);
 		
 	}

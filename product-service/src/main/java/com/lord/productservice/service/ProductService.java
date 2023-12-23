@@ -8,16 +8,16 @@ import com.lord.productservice.model.Product;
 
 public interface ProductService {
 	
-	public ProductDto findByIdCode(String productIdCode);
-	
 	public Product findByCategoryId(Long categoryId);
 	
-	public String save(ProductDto productDto, Long categoryId);
+	public ProductDto findById(Long productId);
+	
+	public Long save(ProductDto productDto, Long categoryId);
 	
 	public List<Product> findAll();
 	
-	public boolean isAvailable(String productIdCode);
+	public boolean isAvailable(Long productId);
 	
-	public int findStock(String productIdCode);
+	public int findStock(Long productId);
 
 }

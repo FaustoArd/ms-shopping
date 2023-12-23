@@ -21,7 +21,7 @@ public class Stock {
 	private int quantity;
 	
 	@Column
-	private UUID productIdCode;
+	private Long productId;
 	
 	public Stock() {
 		
@@ -43,10 +43,10 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
-	public UUID getProductIdCode() {
-		return productIdCode;
+	public Long getProductId() {
+		return productId;
 	}
-	public void setProductIdCode(UUID productIdCode) {
-		this.productIdCode = productIdCode;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 }
