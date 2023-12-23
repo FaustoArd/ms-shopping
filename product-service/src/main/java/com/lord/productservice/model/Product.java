@@ -26,6 +26,9 @@ public class Product {
 	@Column(name="category_id")
 	private Long categoryId;
 	
+	@Column(name="available")
+	private boolean available;
+	
 	public Product() {
 		
 	}
@@ -56,8 +59,15 @@ public class Product {
 	public Long getCategoryId() {
 		return categoryId;
 	}
-	public void setCategoryIdC(Long categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	public boolean isAvailable() {
+		return available;
+	}
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 	
 	

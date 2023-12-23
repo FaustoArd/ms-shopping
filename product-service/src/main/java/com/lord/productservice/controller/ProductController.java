@@ -1,5 +1,7 @@
 package com.lord.productservice.controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,22 +35,21 @@ public class ProductController {
 	
 	@GetMapping("/by_id_code/{productIdCode}")
 	ResponseEntity<ProductDto> findByIdCode(@PathVariable("productIdCode")String productIdCode){
-		Product product = productService.findByIdCode(productIdCode);
-		ProductDto productDto = ProductMapper.INSTANCE.toProductDto(product);
+		ProductDto productDto = productService.findByIdCode(productIdCode);
 		return new ResponseEntity<ProductDto>(productDto,HttpStatus.OK);
 	}
 
-	
 	@PostMapping("/")
 	ResponseEntity<String> saveProduct(@RequestBody ProductDto productDto, @RequestParam("categoryId") Long categoryId){
-		Product product = ProductMapper.INSTANCE.toProduct(productDto);
-		productService.save(product,categoryId);
-		return new ResponseEntity<String>(gson.toJson("product saved!"), HttpStatus.CREATED);
+		String productIdCode = productService.save(productDto,categoryId);
+		return new ResponseEntity<String>(gson.toJson(productIdCode + " Date: " + Calendar.getInstance().getTime()), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/is_available")
 	ResponseEntity<Boolean> isAvailable(@RequestParam("productIdCode") String productIdCode){
 		return new ResponseEntity<Boolean>(productService.isAvailable(productIdCode),HttpStatus.OK);
 	}
+	
+	
 
 }

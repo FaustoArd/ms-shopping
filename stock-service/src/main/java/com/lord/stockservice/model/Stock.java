@@ -20,9 +20,7 @@ public class Stock {
 	@Column(name="quantity")
 	private int quantity;
 	
-	@Column(name="available")
-	private boolean available;
-	
+	@Column
 	private UUID productIdCode;
 	
 	public Stock() {
@@ -45,14 +43,6 @@ public class Stock {
 		this.quantity = quantity;
 	}
 
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-	
 	public UUID getProductIdCode() {
 		return productIdCode;
 	}

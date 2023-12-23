@@ -16,9 +16,21 @@ public class StockMapper {
 		}
 		Stock stock = new Stock();
 		stock.setQuantity(stockDto.getQuantity());
-		stock.setAvailable(stockDto.isAvailable());
 		stock.setProductIdCode(UUID.fromString(stockDto.getProductIdCode()));
 		return stock;
 	}
-
+	
+	public StockDto toStockDto(Stock stock){
+		if(stock==null) {
+			return null;
+		}
+		StockDto stockDto = new StockDto();
+		stockDto.setId(stockDto.getId());
+		stockDto.setQuantity(stock.getQuantity());
+		stockDto.setProductIdCode(stock.getProductIdCode().toString());
+		return stockDto;
+	}
+	
+	
+	
 }

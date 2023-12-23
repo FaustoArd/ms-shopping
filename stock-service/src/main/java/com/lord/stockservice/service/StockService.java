@@ -2,6 +2,7 @@ package com.lord.stockservice.service;
 
 import java.util.UUID;
 
+import com.lord.stockservice.dto.StockDto;
 import com.lord.stockservice.model.Stock;
 
 public interface StockService {
@@ -10,6 +11,8 @@ public interface StockService {
 	
 	public Stock findById(Long id);
 	
-	public boolean isAvailable(String productIdCode);
+	public StockDto findByProductIdCode(String productIdCode);
+	
+
 	
 }

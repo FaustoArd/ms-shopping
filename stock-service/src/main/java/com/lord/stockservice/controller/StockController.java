@@ -1,6 +1,8 @@
 package com.lord.stockservice.controller;
 
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,16 +34,18 @@ public class StockController {
 	}
 	
 	 
-	
-	@GetMapping("/is_available")
-	ResponseEntity<Boolean> isAvailable(@RequestParam("productIdCode") String productIdCode){
-		return new ResponseEntity<Boolean>(stockService.isAvailable(productIdCode),HttpStatus.OK);
-	}
-	
 	@PostMapping("/")
 	ResponseEntity<String> save(@RequestBody StockDto stockDto){
+		System.out.println(stockDto.getProductIdCode());
 	Stock stock = stockMapper.toStock(stockDto);
 	stockService.save(stock);
-	return new ResponseEntity<String>(new Gson().toJson("Stock saved"),HttpStatus.CREATED);
+	return new ResponseEntity<String>(new Gson().toJson("Stock saved: " + Calendar.getInstance().getTime()),HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/by-product-id-code/{productIdCode}")
+	ResponseEntity<StockDto> findByProductIdCode(@PathVariable("productIdCode")String productIdCode){
+		StockDto stockDto = stockService.findByProductIdCode(productIdCode);
+		return ResponseEntity.ok(stockDto);
+		
 	}
 }
