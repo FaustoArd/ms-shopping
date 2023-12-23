@@ -1,10 +1,8 @@
 package com.lord.productservice.service_impl;
 
 import java.util.List;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.lord.productservice.dto.ProductDto;
@@ -13,8 +11,6 @@ import com.lord.productservice.mapper.ProductMapper;
 import com.lord.productservice.model.Product;
 import com.lord.productservice.repository.ProductRepository;
 import com.lord.productservice.service.ProductService;
-
-import reactor.core.publisher.Mono;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,6 +56,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findAll() {
 		return (List<Product>) productRepository.findAll();
 	}
+	
+	@Override
+	public boolean setProductAvailable(Long productId, boolean available) {
+		return productRepository.findById(productId).map(p -> {
+			p.setAvailable(available);
+			return productRepository.save(p);
+		}).get().isAvailable();
+	}
 
 	@Override
 	public boolean isAvailable(Long productId) {
@@ -75,5 +79,7 @@ public class ProductServiceImpl implements ProductService {
 	
 
 	}
+
+	
 
 }

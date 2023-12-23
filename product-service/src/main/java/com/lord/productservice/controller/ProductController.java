@@ -8,15 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.google.gson.Gson;
 import com.lord.productservice.dto.ProductDto;
-import com.lord.productservice.mapper.ProductMapper;
-import com.lord.productservice.model.Product;
 import com.lord.productservice.service.ProductService;
 
 @RestController
@@ -44,7 +42,13 @@ public class ProductController {
 		Long productId = productService.save(productDto,categoryId);
 		return new ResponseEntity<String>(gson.toJson("Product saved. Id: " + productId + " Date: " + Calendar.getInstance().getTime()), HttpStatus.CREATED);
 	}
-
+	
+	@PutMapping("/{id}")
+	ResponseEntity<Boolean> setProductAvailable(@PathVariable("id")Long id,@RequestParam("available") boolean available){
+		boolean result = productService.setProductAvailable(id, available);
+		return new ResponseEntity<Boolean>(result,HttpStatus.OK);
+	}
+	
 	@GetMapping("/is_available")
 	ResponseEntity<Boolean> isAvailable(@RequestParam("productId") Long productId){
 		return new ResponseEntity<Boolean>(productService.isAvailable(productId),HttpStatus.OK);
