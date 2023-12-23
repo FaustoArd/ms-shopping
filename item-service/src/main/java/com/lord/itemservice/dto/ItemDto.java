@@ -15,6 +15,8 @@ public class ItemDto {
 	private Long productId;
 	
 	private int quantity;
+	
+	private String itemSku;
 
 	public String getId() {
 		return id;
@@ -62,6 +64,13 @@ public class ItemDto {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String getItemSku() {
+		return itemSku;
+	}
+	public void setItemSku(String itemSku) {
+		this.itemSku = itemSku;
 	}
 	
 	

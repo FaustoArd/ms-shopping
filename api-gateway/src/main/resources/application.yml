@@ -32,7 +32,11 @@ spring:
       - id: item-service
         uri: lb://item-service
         predicates:
-        - Path=/api/item/**   
+        - Path=/api/item/**  
+      - id: item-stock-service
+        uri: lb://item-stock-service
+        predicates:
+        - Path=/api/item-stock/**    
       - id: security-service
         uri: http://localhost:9000
         predicates:

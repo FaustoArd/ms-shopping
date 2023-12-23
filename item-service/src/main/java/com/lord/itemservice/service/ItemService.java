@@ -9,9 +9,11 @@ import com.lord.itemservice.model.Item;
 
 public interface ItemService {
 
-	public List<Item> findAllByProductId(Long productId);
+	public List<ItemDto> findAllByProductId(Long productId);
 	
-	public Item findById(ObjectId id);
+	public ItemDto findById(String id);
+	
+	public ItemDto findByItemSku(String itemSku);
 	
 	public String save(ItemDto itemDto);
 	

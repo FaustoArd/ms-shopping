@@ -18,6 +18,8 @@ public class Item {
 	
 	private Long productId;
 	
+	private String itemSku;
+	
 	
 	
 	public Item() {
@@ -61,6 +63,13 @@ public class Item {
 	}
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+	
+	public String getItemSku() {
+		return itemSku;
+	}
+	public void setItemSku(String itemSku) {
+		this.itemSku = itemSku;
 	}
 	
 
