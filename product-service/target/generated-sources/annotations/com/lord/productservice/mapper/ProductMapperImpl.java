@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-23T08:40:04-0400",
+    date = "2023-12-23T13:47:20-0400",
     comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.34.0.v20230523-1233, environment: Java 17.0.7 (Oracle Corporation)"
 )
 public class ProductMapperImpl implements ProductMapper {
@@ -23,9 +23,9 @@ public class ProductMapperImpl implements ProductMapper {
         ProductDto productDto = new ProductDto();
 
         productDto.setAvailable( product.isAvailable() );
-        productDto.setCategoryId( product.getCategoryId() );
         productDto.setId( product.getId() );
         productDto.setName( product.getName() );
+        productDto.setCategoryId( product.getCategoryId() );
 
         return productDto;
     }
@@ -38,10 +38,10 @@ public class ProductMapperImpl implements ProductMapper {
 
         Product product = new Product();
 
-        product.setAvailable( productDto.isAvailable() );
-        product.setCategoryId( productDto.getCategoryId() );
         product.setId( productDto.getId() );
         product.setName( productDto.getName() );
+        product.setCategoryId( productDto.getCategoryId() );
+        product.setAvailable( productDto.isAvailable() );
 
         return product;
     }
