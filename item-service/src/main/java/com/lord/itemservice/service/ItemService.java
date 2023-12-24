@@ -17,5 +17,7 @@ public interface ItemService {
 	
 	public String save(ItemDto itemDto);
 	
+	public int saveStock(String itemId,int quantity);
+	
 	
 }

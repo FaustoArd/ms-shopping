@@ -8,7 +8,7 @@ spring:
     hibernate:
       ddl-auto: create-drop 
   application:
-    name: stock-item-service    
+    name: item-stock-service    
 server:
   port: 0
 eureka:

@@ -5,18 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lord.itemstockservice.dto.ItemStockDto;
+import com.lord.itemstockservice.mapper.ItemStockMapper;
 import com.lord.itemstockservice.model.ItemStock;
 import com.lord.itemstockservice.repository.ItemStockRepository;
 import com.lord.itemstockservice.service.ItemStockService;
 
 @Service
-public class ItemStockService_impl implements ItemStockService {
+public class ItemStockServiceImpl implements ItemStockService {
 
 	@Autowired
 	private final ItemStockRepository itemStockRepository;
 	
-	public ItemStockService_impl(ItemStockRepository itemStockRepository) {
+	private final ItemStockMapper itemStockMapper;
+	
+	public ItemStockServiceImpl(ItemStockRepository itemStockRepository,ItemStockMapper itemStockMapper) {
 		this.itemStockRepository = itemStockRepository;
+		this.itemStockMapper = itemStockMapper;
 	}
 
 	@Override
@@ -25,16 +30,15 @@ public class ItemStockService_impl implements ItemStockService {
 	}
 	
 	@Override
-	public ItemStock findByItemId(String itemId) {
-	return itemStockRepository.findByItemId(itemId).orElseThrow(() ->  new RuntimeException("Stock not found"));
+	public ItemStockDto findByItemId(String itemId) {
+	ItemStock itemStock =  itemStockRepository.findByItemId(itemId).orElseThrow(() ->  new RuntimeException("Stock not found"));
+	return itemStockMapper.toItemStockDto(itemStock);
 	}
 	
 	@Override
-	public ItemStock save(String productId, int quantity) {
-	ItemStock itemStock = new ItemStock();
-	itemStock.setItemId(productId);
-	itemStock.setQuantity(quantity);
-		return itemStockRepository.save(itemStock);
+	public ItemStockDto save(ItemStockDto itemStockDto) {
+	ItemStock itemStock = itemStockMapper.toItemStock(itemStockDto);
+		return itemStockMapper.toItemStockDto(itemStockRepository.save(itemStock));
 	}
 
 	@Override

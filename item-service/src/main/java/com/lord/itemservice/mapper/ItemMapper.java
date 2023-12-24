@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import com.lord.itemservice.dto.ItemDto;
+import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.model.Item;
 
 @Component
@@ -50,6 +51,13 @@ public class ItemMapper {
 			itemsDto.add(toItemDto(item));
 		}
 		return itemsDto;
+	}
+	
+	public ItemStockDto toItemStockDto(String itemId,int quantity) {
+		ItemStockDto itemStockDto = new ItemStockDto();
+		itemStockDto.setItemId(itemId);
+		itemStockDto.setQuantity(quantity);
+		return itemStockDto;
 	}
 
 }
