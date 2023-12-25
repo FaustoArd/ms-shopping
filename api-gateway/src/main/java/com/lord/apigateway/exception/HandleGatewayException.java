@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
 
-import com.netflix.discovery.shared.transport.TransportException;
+
 
 @ControllerAdvice
 public class HandleGatewayException extends ResponseEntityExceptionHandler {
@@ -24,10 +24,6 @@ public class HandleGatewayException extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(TransportException.class)
-	ResponseEntity<String> handleTransport(TransportException ex){
-		log.error("Discovery server connection error");
-		return new ResponseEntity<String>(ex.getMessage(),HttpStatus.NOT_FOUND);
-	}
+
 
 }

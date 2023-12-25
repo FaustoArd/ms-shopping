@@ -1,10 +1,14 @@
 package com.lord.productservice.service_impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 import com.lord.productservice.dto.ProductDto;
 import com.lord.productservice.dto.StockDto;
 import com.lord.productservice.mapper.ProductMapper;
@@ -43,18 +47,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Long save(ProductDto productDto, Long catedoryId) {
-		Product product = new Product();
-		product.setName(productDto.getName());
-		product.setCategoryId(catedoryId);
-		
-		return productRepository.save(product).getId();
+	public ProductDto save(ProductDto productDto, Long categoryId) {
+		Product product = ProductMapper.INSTANCE.toProduct(productDto);
+		product.setCategoryId(categoryId);
+		return ProductMapper.INSTANCE.toProductDto( productRepository.save(product) );
 
 	}
 
 	@Override
-	public List<Product> findAll() {
-		return (List<Product>) productRepository.findAll();
+	public List<ProductDto> findAll() {
+		List<Product> products = productRepository.findAll();
+		return ProductMapper.INSTANCE.toProductsDto(products);
 	}
 	
 	@Override
@@ -73,11 +76,27 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int findStock(Long productId) {
-	
+		try {
 		return this.webClient.get().uri("api/stock/by-product-id-code/{productIdCode}", productId)
 				.accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(StockDto.class).block().getQuantity();
-	
+		}catch(WebClientException ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
 
+	}
+
+	@Override
+	public int getProductTotalStock(Long productId) {
+		try {
+			List<String> itemsId = webClient.get().uri("/api/item/{productId}", productId).accept(MediaType.APPLICATION_JSON)
+					.retrieve().bodyToMono(new ParameterizedTypeReference<List<String>>() {
+					}).block().stream().map(id -> id).collect(Collectors.toList());
+			
+			return  webClient.get().uri("/api/item/total-quantity",uriBuilder -> uriBuilder.queryParam("itemsId", itemsId).build())
+					.retrieve().bodyToMono(Integer.class).block();
+		}catch(WebClientException ex) {
+			throw new RuntimeException(ex.getMessage());
+		}
 	}
 
 	

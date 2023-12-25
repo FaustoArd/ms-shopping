@@ -1,7 +1,9 @@
 package com.lord.itemservice.mapper;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import com.lord.itemservice.dto.ItemDto;
@@ -22,6 +24,7 @@ public class ItemMapper {
 		itemDto.setDescription(item.getDescription());
 		itemDto.setItemSku(item.getItemSku());
 		itemDto.setColor(item.getColor());
+		itemDto.setPrice(item.getPrice());
 		return itemDto;
 
 	}
@@ -39,6 +42,7 @@ public class ItemMapper {
 		item.setProductId(itemDto.getProductId());
 		item.setItemSku(itemDto.getItemSku());
 		item.setColor(itemDto.getColor());
+		item.setPrice(itemDto.getPrice());
 		return item;
 	}
 
@@ -58,6 +62,39 @@ public class ItemMapper {
 		itemStockDto.setItemId(itemId);
 		itemStockDto.setQuantity(quantity);
 		return itemStockDto;
+	}
+	
+	public List<ItemDto> itemStockDtoToItemDto(List<ItemDto> itemsDto,List<ItemStockDto> itemsStockDto){
+		if(itemsStockDto==null) {
+			return null;
+		}
+		List<ItemDto> listResult = new ArrayList<ItemDto>();
+		ListIterator<ItemStockDto> stockIterator = itemsStockDto.listIterator();
+		while(stockIterator.hasNext()){
+			ItemDto itemResult = itemsDto.stream().filter(f -> f.getId()==stockIterator.next().getItemId()).findFirst().get();
+			itemResult.setQuantity(stockIterator.next().getQuantity());
+		listResult.add(itemResult);
+		}
+		return listResult;
+		
+		
+	}
+	
+	public ItemDto testStockToDto(ItemStockDto itemStockDto) {
+		if(itemStockDto==null) {
+			return null;
+		}
+		ItemDto itemDto = new ItemDto();
+		itemDto.setQuantity(itemStockDto.getQuantity());
+		return itemDto;
+	}
+	
+	public ItemDto itemStockDtoToItemDto(ItemDto itemDto,ItemStockDto itemStockDto) {
+		if(itemStockDto==null) {
+			return null;
+		}
+		itemDto.setQuantity(itemStockDto.getQuantity());
+		return itemDto;
 	}
 
 }

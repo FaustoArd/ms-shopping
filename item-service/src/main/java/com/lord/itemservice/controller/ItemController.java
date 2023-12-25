@@ -1,5 +1,6 @@
 package com.lord.itemservice.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -45,5 +47,17 @@ public class ItemController {
 	ResponseEntity<List<ItemDto>> findAllByProductId(@PathVariable("productId")Long productId){
 		List<ItemDto> itemsDto = itemService.findAllByProductId(productId);
 		return new ResponseEntity<List<ItemDto>>(itemsDto,HttpStatus.OK);
+	}
+	
+	@GetMapping("/price")
+	ResponseEntity<?> getItemPrice(@RequestParam("itemId")String itemId){
+		BigDecimal price = itemService.getItemPrice(itemId);
+		return ResponseEntity.ok(price);
+	}
+	
+	@GetMapping("/total-quantity")
+	ResponseEntity<?> getTotalProductStock(@RequestParam("itemsId")List<String> itemsId){
+		int result = itemService.findTotalProductQuantity(itemsId);
+		return ResponseEntity.ok(result);
 	}
 }

@@ -12,6 +12,8 @@ public class ItemStockDto {
 	private String itemId;
 	
 	private int quantity;
+	
+	
 
 	public Long getId() {
 		return id;
@@ -36,6 +38,8 @@ public class ItemStockDto {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	
 	
 	
 }

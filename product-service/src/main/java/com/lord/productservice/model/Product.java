@@ -29,6 +29,17 @@ public class Product {
 	public Product() {
 		
 	}
+	
+	
+	/**Constructor for testing purposes, not used in code**/
+	public Product(Long id, String name, Long categoryId, boolean available) {
+		this.id = id;
+		this.name = name;
+		this.categoryId = categoryId;
+		this.available = available;
+	}
+
+
 
 	public Long getId() {
 		return id;

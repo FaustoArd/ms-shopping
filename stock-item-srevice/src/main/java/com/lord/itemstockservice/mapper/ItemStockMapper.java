@@ -1,5 +1,8 @@
 package com.lord.itemstockservice.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.lord.itemstockservice.dto.ItemStockDto;
@@ -32,5 +35,18 @@ public class ItemStockMapper {
 		
 		return itemStock;
 	}
+	
+	public List<ItemStockDto> toItemsStockDto(List<ItemStock> itemsStock){
+		if( itemsStock == null) {
+			return null;
+		}
+		List<ItemStockDto> itemsStockDto = new ArrayList<ItemStockDto>(itemsStock.size());
+		for(ItemStock itemStock:itemsStock) {
+			itemsStockDto.add(toItemStockDto(itemStock));
+		}
+		return itemsStockDto;
+	}
+	
+	
 	
 }

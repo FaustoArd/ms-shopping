@@ -22,6 +22,7 @@ public interface ProductMapper {
 	
 	public List<ProductDto> toProductsDto(List<Product> products);
 	
+	@Mapping(target="productId", source = "id")
 	public StockDto toStockDto(ProductDto productDto);
 
 }

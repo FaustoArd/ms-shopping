@@ -1,6 +1,7 @@
 package com.lord.productservice.controller;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,12 @@ public class ProductController {
 		this.productService = productService;
 	}
 	
+	@GetMapping("/all")
+	ResponseEntity<List<ProductDto>> findAll(){
+		List<ProductDto> productsDto = productService.findAll();
+		return ResponseEntity.ok(productsDto);
+	}
+	
 	@GetMapping("/by_id/{productId}")
 	ResponseEntity<ProductDto> findById(@PathVariable("productId")Long productId){
 		ProductDto productDto = productService.findById(productId);
@@ -38,9 +45,9 @@ public class ProductController {
 	}
 
 	@PostMapping("/")
-	ResponseEntity<String> saveProduct(@RequestBody ProductDto productDto, @RequestParam("categoryId") Long categoryId){
-		Long productId = productService.save(productDto,categoryId);
-		return new ResponseEntity<String>(gson.toJson("Product saved. Id: " + productId + " Date: " + Calendar.getInstance().getTime()), HttpStatus.CREATED);
+	ResponseEntity<ProductDto> saveProduct(@RequestBody ProductDto productDto, @RequestParam("categoryId") Long categoryId){
+		ProductDto savedProductDto = productService.save(productDto,categoryId);
+		return new ResponseEntity<ProductDto>(savedProductDto, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")

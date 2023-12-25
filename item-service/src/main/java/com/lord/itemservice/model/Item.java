@@ -1,5 +1,7 @@
 package com.lord.itemservice.model;
 
+import java.math.BigDecimal;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,8 +22,18 @@ public class Item {
 	
 	private String itemSku;
 	
+	private BigDecimal price;
 	
 	
+	
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
 	public Item() {
 		super();
 	}

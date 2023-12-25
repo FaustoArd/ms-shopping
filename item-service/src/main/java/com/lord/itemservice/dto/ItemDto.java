@@ -1,6 +1,6 @@
 package com.lord.itemservice.dto;
 
-
+import java.math.BigDecimal;
 
 public class ItemDto {
 	
@@ -17,6 +17,18 @@ public class ItemDto {
 	private int quantity;
 	
 	private String itemSku;
+	
+	private BigDecimal price;
+	
+	
+	
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
 	public String getId() {
 		return id;

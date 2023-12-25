@@ -14,7 +14,13 @@ public interface ItemStockService {
 	
 	public ItemStockDto save(ItemStockDto itemStockDto);
 	
-	public List<ItemStock> findAll();
+	public int updateStock(String itemId,int quantity);
+	
+	public List<ItemStockDto> findAll();
+	
+	public List<ItemStockDto> findAllbyItemId(List<String>itemsId);
+	
+	public boolean isInStock(String itemId,int quantity);
 	
 	
 }

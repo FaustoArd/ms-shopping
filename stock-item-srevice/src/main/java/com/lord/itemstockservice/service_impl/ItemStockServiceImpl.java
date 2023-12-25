@@ -42,8 +42,28 @@ public class ItemStockServiceImpl implements ItemStockService {
 	}
 
 	@Override
-	public List<ItemStock> findAll() {
-		return (List<ItemStock>)itemStockRepository.findAll();
+	public List<ItemStockDto> findAll() {
+		 List<ItemStock> itemsStock = itemStockRepository.findAll();
+		 return itemStockMapper.toItemsStockDto(itemsStock);
+	}
+
+	@Override
+	public List<ItemStockDto> findAllbyItemId(List<String> itemsId) {
+		List<ItemStock> itemsStock = itemStockRepository.findAllByItemIdIn(itemsId);
+		return itemStockMapper.toItemsStockDto(itemsStock);
+	}
+
+	@Override
+	public boolean isInStock(String itemId,int quantity) {
+		return itemStockRepository.findByItemId(itemId).map(s -> s.getQuantity()>=quantity).get();
+	}
+
+	@Override
+	public int updateStock(String itemId, int quantity) {
+		return itemStockRepository.findByItemId(itemId).map(stock -> {
+			stock.setQuantity(stock.getQuantity() - quantity);
+			return itemStockRepository.save(stock).getQuantity();
+		}).orElseThrow(()-> new RuntimeException("Stock not found"));
 	}
 
 

@@ -11,14 +11,16 @@ public interface ProductService {
 	
 	public ProductDto findById(Long productId);
 	
-	public Long save(ProductDto productDto, Long categoryId);
+	public ProductDto save(ProductDto productDto, Long categoryId);
 	
-	public List<Product> findAll();
+	public List<ProductDto> findAll();
 	
 	public boolean setProductAvailable(Long productId, boolean available);
 	
 	public boolean isAvailable(Long productId);
 	
 	public int findStock(Long productId);
+	
+	public int getProductTotalStock(Long productId);
 
 }

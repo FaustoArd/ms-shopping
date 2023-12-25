@@ -18,6 +18,8 @@ public class ItemStock {
 	@Column(name="item_id",unique = true)
 	private String itemId;
 	
+
+	
 	@Column(name="quantity")
 	private int quantity;
 
@@ -44,6 +46,8 @@ public class ItemStock {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	
 
 	
 }
