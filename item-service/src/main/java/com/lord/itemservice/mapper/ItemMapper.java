@@ -64,32 +64,28 @@ public class ItemMapper {
 		return itemStockDto;
 	}
 	
-	public List<ItemDto> itemStockDtoToItemDto(List<ItemDto> itemsDto,List<ItemStockDto> itemsStockDto){
-		if(itemsStockDto==null) {
-			return null;
-		}
-		List<ItemDto> listResult = new ArrayList<ItemDto>();
-		ListIterator<ItemStockDto> stockIterator = itemsStockDto.listIterator();
-		while(stockIterator.hasNext()){
-			ItemDto itemResult = itemsDto.stream().filter(f -> f.getId()==stockIterator.next().getItemId()).findFirst().get();
-			itemResult.setQuantity(stockIterator.next().getQuantity());
-		listResult.add(itemResult);
-		}
-		return listResult;
-		
+	public List<ItemDto> stocksToItemsDto(List<Item> items, List<ItemStockDto>  itemsStockDto){
+		List<ItemDto> itemsDto = new ArrayList<ItemDto>(items.size()+1);
+		itemsDto = items.stream().map(item -> {
+			ItemDto itemDto = new ItemDto();
+			itemDto.setId(item.getId().toString());
+			itemDto.setProductName(item.getProductName());
+			itemDto.setDescription(item.getDescription());
+			itemDto.setColor(item.getColor());
+			itemDto.setProductId(item.getProductId());
+			itemDto.setQuantity(itemsStockDto.stream().filter(stock -> stock.getItemId().equals(item.getId().toString()))
+					.findFirst().get().getQuantity());
+			itemDto.setItemSku(item.getItemSku());
+			itemDto.setPrice(item.getPrice());
+			return itemDto;
+		}).toList();
+		return itemsDto;
 		
 	}
 	
-	public ItemDto testStockToDto(ItemStockDto itemStockDto) {
-		if(itemStockDto==null) {
-			return null;
-		}
-		ItemDto itemDto = new ItemDto();
-		itemDto.setQuantity(itemStockDto.getQuantity());
-		return itemDto;
-	}
 	
-	public ItemDto itemStockDtoToItemDto(ItemDto itemDto,ItemStockDto itemStockDto) {
+		
+		public ItemDto itemStockDtoToItemDto(ItemDto itemDto,ItemStockDto itemStockDto) {
 		if(itemStockDto==null) {
 			return null;
 		}

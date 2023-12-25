@@ -32,9 +32,9 @@ public class ItemController {
 	}
 	
 	@PostMapping("/")
-	ResponseEntity<String> save(@RequestBody ItemDto itemDto){
-		String itemId = itemService.save(itemDto);
-		return new ResponseEntity<String>(gson.toJson(itemId),HttpStatus.CREATED);
+	ResponseEntity<ItemDto> save(@RequestBody ItemDto itemDto){
+		ItemDto savedItemDto = itemService.save(itemDto);
+		return new ResponseEntity<ItemDto>(savedItemDto,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")

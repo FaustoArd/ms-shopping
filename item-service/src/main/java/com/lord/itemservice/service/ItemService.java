@@ -17,7 +17,7 @@ public interface ItemService {
 	
 	public ItemDto findByItemSku(String itemSku);
 	
-	public String save(ItemDto itemDto);
+	public ItemDto save(ItemDto itemDto);
 	
 	public int saveStock(String itemId,int quantity);
 	

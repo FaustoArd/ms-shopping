@@ -1,23 +1,16 @@
 package com.lord.itemservice.service_impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-
 import com.lord.itemservice.dto.ItemDto;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.mapper.ItemMapper;
@@ -33,8 +26,6 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private final ItemRepository itemRepository;
 
-	
-
 	@Autowired
 	private final ItemMapper itemMapper;
 
@@ -49,25 +40,29 @@ public class ItemServiceImpl implements ItemService {
 		this.itemRepository = itemRepository;
 		this.itemMapper = itemMapper;
 		this.webClient = webClientBuilder.baseUrl("http://localhost:8090").build();
-	
+
 	}
 
+	/** WebClient Get to item-stock-service **/
 	@Override
 	public List<ItemDto> findAllByProductId(Long productId) {
 		List<Item> items = itemRepository.findAllByProductId(productId);
-		return itemMapper.toItemsDto(items);
+		List<String> itemsId = items.stream().map(i -> i.getId().toString()).collect(Collectors.toList());
+		List<ItemStockDto> stocks = findAllStocks(itemsId);
+		return itemMapper.stocksToItemsDto(items,stocks);
 	}
 
+	/**
+	 * get the sum of all items by product Id.
+	 *  WebClient Get to item-stock-service
+	 **/
 	@Override
 	public int findTotalProductQuantity(List<String> itemsId) {
-		Mono<List<ItemStockDto>> itemsStockDtoMono = webClient.get()
-				.uri("/api/item-stock/all", uriBuilder -> uriBuilder.queryParam("itemsId", itemsId).build()).retrieve()
-				.bodyToMono(new ParameterizedTypeReference<List<ItemStockDto>>() {
-				});
-
-		return itemsStockDtoMono.block().stream().mapToInt(m -> m.getQuantity()).sum();
+		return findAllStocks(itemsId).stream().mapToInt(m -> m.getQuantity()).sum();
 	}
 
+	/** Get Item by id. **/
+	/** WebClient Get to item-stock-service **/
 	@Override
 	public ItemDto findById(String itemId) {
 		Item item = itemRepository.findById(new ObjectId(itemId))
@@ -85,18 +80,23 @@ public class ItemServiceImpl implements ItemService {
 
 	}
 
-	
+	/**
+	 * Save item, WebClient Post to item-stock-service if user add a quantity
+	 **/
 	@Override
-	public String save(ItemDto itemDto) {
+	public ItemDto save(ItemDto itemDto) {
 		Item item = itemMapper.toItem(itemDto);
 		item.setItemSku(RandomStringUtils.random(ITEM_SKU_LENGTH, CHARACTERS));
 		Item savedItem = itemRepository.save(item);
 		if (Integer.toString(itemDto.getQuantity()) == null) {
-			return "Item saved, Id: " + savedItem.getId();
+			return itemMapper.toItemDto(savedItem);
 		}
+		/** If user add a quantity **/
 		try {
 			int savedQuantity = saveStock(savedItem.getId().toString(), itemDto.getQuantity());
-			return "Item saved, Id: " + savedItem.getId() + ", Quantity: " + savedQuantity;
+			ItemDto savedItemDto = itemMapper.toItemDto(savedItem);
+			savedItemDto.setQuantity(savedQuantity);
+			return savedItemDto;
 		} catch (Exception ex) {
 			throw new RuntimeException(ex.getMessage());
 		}
@@ -109,11 +109,17 @@ public class ItemServiceImpl implements ItemService {
 		return itemMapper.toItemDto(item);
 	}
 
+	public List<ItemStockDto> findAllStocks(List<String> itemsId) {
+		Mono<List<ItemStockDto>> itemsStockDtoMono = webClient.get()
+				.uri("/api/item-stock/all", uriBuilder -> uriBuilder.queryParam("itemsId", itemsId).build()).retrieve()
+				.bodyToMono(new ParameterizedTypeReference<List<ItemStockDto>>() {
+				});
+		return itemsStockDtoMono.block();
+	}
+
 	/**
-	 * This method perform a post request and save stock quantity in
-	 * item-stock-service
+	 * Save stock quantity, WebClient Post to item-stock-service
 	 **/
-	
 	@Override
 	public int saveStock(String itemId, int quantity) {
 		ItemStockDto itemStockDto = itemMapper.toItemStockDto(itemId, quantity);
