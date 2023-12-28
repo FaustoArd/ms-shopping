@@ -1,9 +1,13 @@
 package com.lord.orderservice.mapper;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
+
+import com.lord.orderservice.dto.ItemDto;
 import com.lord.orderservice.dto.OrderDto;
 import com.lord.orderservice.model.Order;
 
@@ -35,10 +39,10 @@ public class OrderMapper {
 		OrderDto orderDto = new OrderDto();
 		orderDto.setId(order.getId().toString());
 		orderDto.setItemId(order.getItemId());
-		order.setItemPrice(order.getItemPrice());
-		order.setOrderTotalPrice(order.getOrderTotalPrice());
-		order.setPurchaseCart(order.getPurchaseCart());
-		order.setQuantity(order.getQuantity());
+		orderDto.setItemPrice(order.getItemPrice());
+		orderDto.setOrderTotalPrice(order.getOrderTotalPrice());
+		orderDto.setPurchaseCart(order.getPurchaseCart());
+		orderDto.setQuantity(order.getQuantity());
 		return orderDto;
 	}
 	//Orders to OrdersDto
@@ -48,6 +52,21 @@ public class OrderMapper {
 		}
 		List<OrderDto> ordersDto = orders.stream().map(this::toOrderDto).collect(Collectors.toList());
 		return ordersDto;
+	}
+	
+	public Order mapOrderDtoAndItemDtoToOrder(ItemDto itemDto,OrderDto orderDto,BigDecimal totalOrderPrice) {
+		if(itemDto==null || orderDto==null) {
+			return null;
+		}
+		Order order = new Order();
+		order.setItemId(itemDto.getId());
+		order.setItemPrice(itemDto.getPrice());
+		order.setOrderTotalPrice(totalOrderPrice);
+		order.setPurchaseCart(orderDto.getPurchaseCart());
+		order.setQuantity(orderDto.getQuantity());
+		return order;
+		
+		
 	}
 	
 

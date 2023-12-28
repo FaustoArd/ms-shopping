@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import com.lord.itemservice.dto.ItemDto;
+import com.lord.itemservice.dto.ItemDtoOrderResponse;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.model.Item;
 
@@ -92,5 +93,15 @@ public class ItemMapper {
 		itemDto.setQuantity(itemStockDto.getQuantity());
 		return itemDto;
 	}
+		
+		public ItemDtoOrderResponse itemToItemDtoOrderResponse(Item item) {
+			if(item==null) {
+				return null;
+			}
+			ItemDtoOrderResponse itemDtoOrderResponse = new ItemDtoOrderResponse();
+			itemDtoOrderResponse.setId(item.getId().toString());
+			itemDtoOrderResponse.setPrice(item.getPrice());
+			return itemDtoOrderResponse;
+		}
 
 }

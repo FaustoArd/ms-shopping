@@ -22,6 +22,7 @@
    	<module>stock-item-srevice</module>
    	<module>order-service</module>
    	<module>purchase-cart-service</module>
+   	<module>authorization-server</module>
    </modules>
    <properties>
     <spring-cloud.version>2023.0.0</spring-cloud.version>

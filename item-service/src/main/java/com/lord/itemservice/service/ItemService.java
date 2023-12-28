@@ -6,11 +6,12 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import com.lord.itemservice.dto.ItemDto;
+import com.lord.itemservice.dto.ItemDtoOrderResponse;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.model.Item;
 
 public interface ItemService {
-
+	
 	public List<ItemDto> findAllByProductId(Long productId);
 	
 	public ItemDto findById(String id);
@@ -24,6 +25,10 @@ public interface ItemService {
 	public int findTotalProductQuantity(List<String> itemsId);
 	
 	public BigDecimal getItemPrice(String itemId);
+	
+	public ItemDtoOrderResponse findByIdToPlaceOrder(String itemId);
+	
+
 	
 	
 	

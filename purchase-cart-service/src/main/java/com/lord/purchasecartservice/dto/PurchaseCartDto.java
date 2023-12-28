@@ -13,7 +13,7 @@ public class PurchaseCartDto {
 	private BigDecimal totalPurchasePrice;
 	
 	
-	private List<String> items;
+	private List<String> itemsId;
 	
 
 	private Long userId;
@@ -42,13 +42,13 @@ public class PurchaseCartDto {
 	}
 
 
-	public List<String> getItems() {
-		return items;
+	public List<String> getItemsId() {
+		return itemsId;
 	}
 
 
-	public void setItems(List<String> items) {
-		this.items = items;
+	public void setItemsId(List<String> itemsId) {
+		this.itemsId = itemsId;
 	}
 
 

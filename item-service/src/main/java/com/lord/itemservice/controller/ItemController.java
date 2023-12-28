@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.lord.itemservice.dto.ItemDto;
+import com.lord.itemservice.dto.ItemDtoOrderResponse;
 import com.lord.itemservice.service.ItemService;
 
 @RestController
@@ -41,6 +42,12 @@ public class ItemController {
 	ResponseEntity<ItemDto> findById(@PathVariable("id")String id){
 		ItemDto itemDto = itemService.findById(id);
 		return ResponseEntity.ok(itemDto);
+	}
+	
+	@GetMapping("to_order/{id}")
+	ResponseEntity<ItemDtoOrderResponse> findByIdToPlaceOrder(@PathVariable("id")String id){
+		ItemDtoOrderResponse itemDtoOrderResponse = itemService.findByIdToPlaceOrder(id);
+		return ResponseEntity.ok(itemDtoOrderResponse);
 	}
 	
 	@GetMapping("/all/{productId}")

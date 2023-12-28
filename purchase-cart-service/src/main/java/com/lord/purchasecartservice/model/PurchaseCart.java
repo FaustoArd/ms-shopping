@@ -20,8 +20,8 @@ public class PurchaseCart {
 	@Column(name="total_purchase_price")
 	private BigDecimal totalPurchasePrice;
 	
-	@Column(name="items")
-	private List<String> items;
+	@Column(name="items_id")
+	private List<String> itemsId;
 	
 	@Column(name="user_id")
 	private Long userId;
@@ -48,12 +48,12 @@ public class PurchaseCart {
 		this.totalPurchasePrice = totalPurchasePrice;
 	}
 
-	public List<String> getItems() {
-		return items;
+	public List<String> getItemsId() {
+		return itemsId;
 	}
 
-	public void setItems(List<String> items) {
-		this.items = items;
+	public void setItemsId(List<String> itemsId) {
+		this.itemsId = itemsId;
 	}
 
 	public Long getUserId() {

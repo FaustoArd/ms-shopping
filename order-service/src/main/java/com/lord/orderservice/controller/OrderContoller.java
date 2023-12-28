@@ -29,8 +29,9 @@ public class OrderContoller {
 	}
 	
 	@PostMapping("/")
-	ResponseEntity<String> placeOrder(@RequestBody OrderDto orderDto){
-		BigDecimal result = orderService.placeOrder(orderDto);
-		return new ResponseEntity<String>(gson.toJson("Total order price: $" + result),HttpStatus.CREATED);
+	ResponseEntity<OrderDto> placeOrder(@RequestBody OrderDto orderDto){
+		OrderDto result = orderService.placeOrder(orderDto);
+		return new ResponseEntity<OrderDto>(result,HttpStatus.CREATED);
 	}
 }
+

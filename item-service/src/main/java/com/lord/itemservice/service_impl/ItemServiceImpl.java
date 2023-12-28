@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 import com.lord.itemservice.dto.ItemDto;
+import com.lord.itemservice.dto.ItemDtoOrderResponse;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.mapper.ItemMapper;
 import com.lord.itemservice.model.Item;
@@ -79,6 +80,18 @@ public class ItemServiceImpl implements ItemService {
 		return itemDto;
 
 	}
+	
+	@Override
+	public ItemDtoOrderResponse findByIdToPlaceOrder(String itemId) {
+		return itemRepository.findById(new ObjectId(itemId)).map(item ->{
+			ItemDtoOrderResponse itemDtoOrderResponse = new ItemDtoOrderResponse();
+			itemDtoOrderResponse.setId(item.getId().toString());
+			itemDtoOrderResponse.setPrice(item.getPrice());
+			return itemDtoOrderResponse;
+		}).orElseThrow(()-> new RuntimeException("Item not found"));
+
+	}
+	
 
 	/**
 	 * Save item, WebClient Post to item-stock-service if user add a quantity
@@ -133,5 +146,7 @@ public class ItemServiceImpl implements ItemService {
 
 		return itemRepository.findById(new ObjectId(itemId)).get().getPrice();
 	}
+
+	
 
 }

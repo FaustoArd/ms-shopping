@@ -10,6 +10,11 @@ import org.springframework.web.reactive.result.method.annotation.ResponseEntityE
 @ControllerAdvice
 public class HandleItemException extends ResponseEntityExceptionHandler{
 	
+	@ExceptionHandler(OutOfStockException.class)
+	ResponseEntity<String> handleOutOfStock(OutOfStockException ex){
+		return new ResponseEntity<String>(ex.getMessage(),HttpStatus.EXPECTATION_FAILED);
+	}
+	
 	@ExceptionHandler(WebClientException.class)
 	ResponseEntity<String> handleWebClient(WebClientException ex){
 		return new ResponseEntity<String>(ex.getMessage(),HttpStatus.SERVICE_UNAVAILABLE);

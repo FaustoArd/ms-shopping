@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 
+import com.lord.orderservice.dto.ItemDto;
 import com.lord.orderservice.dto.OrderDto;
 import com.lord.orderservice.exception.OutOfStockException;
 import com.lord.orderservice.mapper.OrderMapper;
@@ -35,20 +36,33 @@ public class OrderServiceImpl implements OrderService {
 		this.orderMapper = orderMapper;
 	}
 
+	/**WebClient Get to get isInStock boolean,
+	 * If is in stock, WebClient Get to get ItemDtoOrderResponse**/
 	@Override
-	public BigDecimal placeOrder(OrderDto orderDto)throws OutOfStockException {
-		
+	public OrderDto placeOrder(OrderDto orderDto)throws OutOfStockException {
 		if(isInStock(orderDto.getItemId(), orderDto.getQuantity())) {
-			Order order = orderMapper.toOrder(orderDto);
-			order.setItemPrice(getItemPrice(orderDto.getItemId()));
-			order.setOrderTotalPrice(getOrderTotal(order.getItemPrice(), order.getQuantity()));
-			return orderRepository.save(order).getOrderTotalPrice();
+			ItemDto itemDto = getItem(orderDto.getItemId());
+			BigDecimal totalOrderPrice = getOrderTotalPrice(itemDto.getPrice(), orderDto.getQuantity());
+			Order order = orderMapper.mapOrderDtoAndItemDtoToOrder(itemDto, orderDto, totalOrderPrice);
+			Order savedOrder = orderRepository.save(order);
+			return  orderMapper.toOrderDto(savedOrder);
+			
+			
 		}else {
 			throw new OutOfStockException("Item out of stock");
 		}
 		
-		
-
+		}
+	@Override
+	public ItemDto getItem(String itemId) {
+		try {
+			Mono<ItemDto> result = webClient.get()
+					.uri("api/item/to_order/" +itemId)
+					.retrieve().bodyToMono(ItemDto.class);
+		return  result.block();
+		} catch (WebClientException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 	@Override
@@ -56,8 +70,8 @@ public class OrderServiceImpl implements OrderService {
 
 		try {
 			Mono<BigDecimal> result = webClient.get()
-					.uri("/item/price", uriBuilder -> uriBuilder.queryParam("itemId", itemId).build())
-					.accept(MediaType.APPLICATION_JSON).retrieve().bodyToMono(BigDecimal.class);
+					.uri("api/item/price", uriBuilder -> uriBuilder.queryParam("itemId", itemId).build())
+					.retrieve().bodyToMono(BigDecimal.class);
 			return result.block();
 		} catch (WebClientException ex) {
 			throw new RuntimeException(ex);
@@ -67,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public boolean isInStock(String itemId,int quantity) {
 		try {
-			Mono<Boolean> result = webClient.get().uri("/stock-item/is-in-stock/{itemId}"
+			Mono<Boolean> result = webClient.get().uri("api/item-stock/is-in-stock"
 					, uriBuilder -> uriBuilder.queryParam("itemId", itemId).queryParam("quantity", quantity)
 					.build()).retrieve().bodyToMono(Boolean.class);
 			return result.block();
@@ -77,7 +91,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public BigDecimal getOrderTotal(BigDecimal itemPrice, int quantity) {
+	public BigDecimal getOrderTotalPrice(BigDecimal itemPrice, int quantity) {
+		
 		return itemPrice.multiply(new BigDecimal(quantity));
 	}
 
@@ -98,6 +113,8 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 	
 

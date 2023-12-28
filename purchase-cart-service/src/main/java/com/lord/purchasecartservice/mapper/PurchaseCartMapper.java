@@ -15,7 +15,7 @@ public class PurchaseCartMapper {
 		}
 		PurchaseCart purchaseCart = new PurchaseCart();
 		purchaseCart.setId(purchaseCartDto.getId());
-		purchaseCart.setItems(purchaseCartDto.getItems());
+		purchaseCart.setItemsId(purchaseCartDto.getItemsId());
 		purchaseCart.setTotalPurchasePrice(purchaseCartDto.getTotalPurchasePrice());
 		purchaseCart.setPurchaseCode(purchaseCartDto.getPurchaseCode());
 		purchaseCart.setUserId(purchaseCartDto.getUserId());
@@ -30,7 +30,7 @@ public class PurchaseCartMapper {
 		}
 		PurchaseCartDto purchaseCartDto = new PurchaseCartDto();
 		purchaseCartDto.setId(purchaseCart.getId());
-		purchaseCartDto.setItems(purchaseCart.getItems());
+		purchaseCartDto.setItemsId(purchaseCart.getItemsId());
 		purchaseCartDto.setTotalPurchasePrice(purchaseCart.getTotalPurchasePrice());
 		purchaseCartDto.setPurchaseCode(purchaseCart.getPurchaseCode());
 		purchaseCartDto.setUserId(purchaseCart.getUserId());
