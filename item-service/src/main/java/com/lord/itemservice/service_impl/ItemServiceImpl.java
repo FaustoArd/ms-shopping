@@ -7,6 +7,9 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -50,12 +53,11 @@ public class ItemServiceImpl implements ItemService {
 		List<Item> items = itemRepository.findAllByProductId(productId);
 		List<String> itemsId = items.stream().map(i -> i.getId().toString()).collect(Collectors.toList());
 		List<ItemStockDto> stocks = findAllStocks(itemsId);
-		return itemMapper.stocksToItemsDto(items,stocks);
+		return itemMapper.stocksToItemsDto(items, stocks);
 	}
 
 	/**
-	 * get the sum of all items by product Id.
-	 *  WebClient Get to item-stock-service
+	 * get the sum of all items by product Id. WebClient Get to item-stock-service
 	 **/
 	@Override
 	public int findTotalProductQuantity(List<String> itemsId) {
@@ -80,18 +82,17 @@ public class ItemServiceImpl implements ItemService {
 		return itemDto;
 
 	}
-	
+
 	@Override
 	public ItemDtoOrderResponse findByIdToPlaceOrder(String itemId) {
-		return itemRepository.findById(new ObjectId(itemId)).map(item ->{
+		return itemRepository.findById(new ObjectId(itemId)).map(item -> {
 			ItemDtoOrderResponse itemDtoOrderResponse = new ItemDtoOrderResponse();
 			itemDtoOrderResponse.setId(item.getId().toString());
 			itemDtoOrderResponse.setPrice(item.getPrice());
 			return itemDtoOrderResponse;
-		}).orElseThrow(()-> new RuntimeException("Item not found"));
+		}).orElseThrow(() -> new RuntimeException("Item not found"));
 
 	}
-	
 
 	/**
 	 * Save item, WebClient Post to item-stock-service if user add a quantity
@@ -147,6 +148,15 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.findById(new ObjectId(itemId)).get().getPrice();
 	}
 
-	
+	@Override
+	public List<ItemDto> findBySearch(String search) {
+		
+		StringMatcher match = StringMatcher.CONTAINING;
+		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(match).withIgnoreCase();
+		Item item = itemMapper.searchToItem(search);
+		Example<Item> example = Example.of(item,matcher);
+		List<Item> items = itemRepository.findAll(example);
+		return itemMapper.toItemsDto(items);
+	}
 
 }

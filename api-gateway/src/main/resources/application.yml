@@ -9,9 +9,18 @@ server:
 spring:
   application:
     name: api-gateway
- 
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: '*'
       routes: 
       - id: product-service
         uri: lb://product-service
@@ -37,6 +46,11 @@ spring:
         uri: lb://item-stock-service
         predicates:
         - Path=/api/item-stock/** 
+        
+      - id: item-management-service
+        uri: lb://item-management-service
+        predicates:
+        - Path=/api/item-management/** 
         
       - id: order-service
         uri: lb://order-service

@@ -28,6 +28,8 @@ public interface ItemService {
 	
 	public ItemDtoOrderResponse findByIdToPlaceOrder(String itemId);
 	
+	public List<ItemDto> findBySearch(String search);
+	
 
 	
 	

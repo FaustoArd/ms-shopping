@@ -3,7 +3,6 @@ package com.lord.itemservice.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import com.lord.itemservice.dto.ItemDto;
@@ -20,7 +19,7 @@ public class ItemMapper {
 		}
 		ItemDto itemDto = new ItemDto();
 		itemDto.setId(item.getId().toString());
-		itemDto.setProductName(item.getProductName());
+		itemDto.setItemName(item.getItemName());
 		itemDto.setProductId(item.getProductId());
 		itemDto.setDescription(item.getDescription());
 		itemDto.setItemSku(item.getItemSku());
@@ -38,7 +37,7 @@ public class ItemMapper {
 		if (itemDto.getId() != null) {
 			item.setId(new ObjectId(itemDto.getId()));
 		}
-		item.setProductName(itemDto.getProductName());
+		item.setItemName(itemDto.getItemName());
 		item.setDescription(itemDto.getDescription());
 		item.setProductId(itemDto.getProductId());
 		item.setItemSku(itemDto.getItemSku());
@@ -70,7 +69,7 @@ public class ItemMapper {
 		itemsDto = items.stream().map(item -> {
 			ItemDto itemDto = new ItemDto();
 			itemDto.setId(item.getId().toString());
-			itemDto.setProductName(item.getProductName());
+			itemDto.setItemName(item.getItemName());
 			itemDto.setDescription(item.getDescription());
 			itemDto.setColor(item.getColor());
 			itemDto.setProductId(item.getProductId());
@@ -102,6 +101,16 @@ public class ItemMapper {
 			itemDtoOrderResponse.setId(item.getId().toString());
 			itemDtoOrderResponse.setPrice(item.getPrice());
 			return itemDtoOrderResponse;
+		}
+		
+		public Item searchToItem(String search) {
+			if(search==null) {
+				return null;
+			}
+			Item item = new Item();
+			item.setDescription(search);
+			
+			return item;
 		}
 
 }

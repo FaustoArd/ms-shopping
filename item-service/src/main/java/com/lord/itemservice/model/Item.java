@@ -12,7 +12,7 @@ public class Item {
 	@Id
 	private ObjectId id;
 	
-	private String productName;
+	private String itemName;
 	
 	private String description;
 
@@ -23,6 +23,8 @@ public class Item {
 	private String itemSku;
 	
 	private BigDecimal price;
+	
+	
 	
 	
 	
@@ -46,12 +48,12 @@ public class Item {
 		this.id = id;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getDescription() {

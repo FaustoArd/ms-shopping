@@ -56,6 +56,12 @@ public class ItemController {
 		return new ResponseEntity<List<ItemDto>>(itemsDto,HttpStatus.OK);
 	}
 	
+	@GetMapping("/all_by_search")
+	ResponseEntity<List<ItemDto>> findAllBySearch(@RequestParam("search")String search){
+		List<ItemDto> itemsDto = itemService.findBySearch(search);
+		return ResponseEntity.ok(itemsDto);
+	}
+	
 	@GetMapping("/price")
 	ResponseEntity<?> getItemPrice(@RequestParam("itemId")String itemId){
 		BigDecimal price = itemService.getItemPrice(itemId);

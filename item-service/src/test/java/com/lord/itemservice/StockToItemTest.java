@@ -36,7 +36,7 @@ public class StockToItemTest {
 	void setup() {
 		Item item1 = new Item();
 		item1.setId(new ObjectId());
-		item1.setProductName("Motorola Catch");
+		item1.setItemName("Motorola Catch");
 		item1.setDescription("16 inch");
 		item1.setColor("White");
 		item1.setProductId(1L);
@@ -45,7 +45,7 @@ public class StockToItemTest {
 
 		Item item2 = new Item();
 		item2.setId(new ObjectId());
-		item2.setProductName("Motorola Catch");
+		item2.setItemName("Motorola Catch");
 		item2.setDescription("16 inch");
 		item2.setColor("Red");
 		item2.setProductId(1L);
@@ -54,7 +54,7 @@ public class StockToItemTest {
 
 		Item item3 = new Item();
 		item3.setId(new ObjectId());
-		item3.setProductName("Motorola Catch");
+		item3.setItemName("Motorola Catch");
 		item3.setDescription("16 inch");
 		item3.setColor("Red");
 		item3.setProductId(1L);
@@ -90,7 +90,7 @@ public class StockToItemTest {
 		itemsDto = items.stream().map(item -> {
 			ItemDto itemDto = new ItemDto();
 			itemDto.setId(item.getId().toString());
-			itemDto.setProductName(item.getProductName());
+			itemDto.setItemName(item.getItemName());
 			itemDto.setDescription(item.getDescription());
 			itemDto.setColor(item.getColor());
 			itemDto.setProductId(item.getProductId());

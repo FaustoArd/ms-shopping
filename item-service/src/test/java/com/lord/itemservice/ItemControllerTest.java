@@ -81,7 +81,7 @@ public class ItemControllerTest {
 						+ "\"quantity\":10,\"price\":3290}")
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
 				.andExpect(jsonPath("$.id", is(notNullValue())))
-				.andExpect(jsonPath("$.productName", is("Topper tennis")))
+				.andExpect(jsonPath("$.itemName", is("Topper tennis")))
 				.andExpect(jsonPath("$.description", is("tennis"))).andExpect(jsonPath("$.color", is("Black")))
 				.andExpect(jsonPath("$.productId", is(1))).andExpect(jsonPath("$.quantity", is(10)))
 				.andExpect(jsonPath("$.itemSku", is(notNullValue()))).andExpect(jsonPath("$.price", is(3290)))
@@ -91,7 +91,7 @@ public class ItemControllerTest {
 	@Test
 	void shouldGetItem() throws Exception {
 		ItemDto item1 = new ItemDto();
-		item1.setProductName("Motorola Catch");
+		item1.setItemName("Motorola Catch");
 		item1.setDescription("16 inch");
 		item1.setColor("White");
 		item1.setProductId(1L);
@@ -102,7 +102,7 @@ public class ItemControllerTest {
 
 		mockMvc.perform(get("/api/item/" + savedItem.getId()).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.id", is(savedItem.getId())))
-				.andExpect(jsonPath("$.productName", is("Motorola Catch")))
+				.andExpect(jsonPath("$.itemName", is("Motorola Catch")))
 				.andExpect(jsonPath("$.description", is("16 inch"))).andExpect(jsonPath("$.color", is("White")))
 				.andExpect(jsonPath("$.productId", is(1))).andExpect(jsonPath("$.quantity", is(20)))
 				.andExpect(jsonPath("$.itemSku", is(notNullValue()))).andExpect(jsonPath("$.price", is(2343)));
@@ -112,7 +112,7 @@ public class ItemControllerTest {
 	@Test
 	void shouldGetItemListWithStockIncluded() throws Exception {
 		ItemDto item1 = new ItemDto();
-		item1.setProductName("Motorola Catch");
+		item1.setItemName("Motorola Catch");
 		item1.setDescription("16 inch");
 		item1.setColor("White");
 		item1.setProductId(1L);
@@ -121,7 +121,7 @@ public class ItemControllerTest {
 		ItemDto savedItem1 = itemService.save(item1);
 
 		ItemDto item2 = new ItemDto();
-		item2.setProductName("Motorola Catch");
+		item2.setItemName("Motorola Catch");
 		item2.setDescription("17 inch");
 		item2.setColor("Red");
 		item2.setProductId(1L);

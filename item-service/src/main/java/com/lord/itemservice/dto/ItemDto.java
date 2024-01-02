@@ -6,7 +6,7 @@ public class ItemDto {
 	
 	private String id;
 	
-	private String productName;
+	private String itemName;
 	
 	private String description;
 
@@ -38,12 +38,12 @@ public class ItemDto {
 		this.id = id;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getItemName() {
+		return itemName;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getDescription() {

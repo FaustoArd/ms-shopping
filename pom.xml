@@ -23,6 +23,7 @@
    	<module>order-service</module>
    	<module>purchase-cart-service</module>
    	<module>authorization-server</module>
+   	<module>item-management-service</module>
    </modules>
    <properties>
     <spring-cloud.version>2023.0.0</spring-cloud.version>
