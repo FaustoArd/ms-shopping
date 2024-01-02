@@ -14,12 +14,12 @@ public class ItemServiceApp {
 		SpringApplication.run(ItemServiceApp.class, args);
 	}
 	
-	@Bean
+	/*@Bean
 	CommandLineRunner run(MongoTemplate mongoTemplate) {
 		return args ->{
 			mongoTemplate.getDb().drop();
 			
 		};
-	}
+	}*/
 
 }

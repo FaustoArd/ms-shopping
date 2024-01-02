@@ -22,6 +22,7 @@ public class ItemMapper {
 		itemDto.setItemName(item.getItemName());
 		itemDto.setProductId(item.getProductId());
 		itemDto.setDescription(item.getDescription());
+		itemDto.setImageUrl(item.getImageUrl());
 		itemDto.setItemSku(item.getItemSku());
 		itemDto.setColor(item.getColor());
 		itemDto.setPrice(item.getPrice());
@@ -39,6 +40,7 @@ public class ItemMapper {
 		}
 		item.setItemName(itemDto.getItemName());
 		item.setDescription(itemDto.getDescription());
+		item.setImageUrl(itemDto.getImageUrl());
 		item.setProductId(itemDto.getProductId());
 		item.setItemSku(itemDto.getItemSku());
 		item.setColor(itemDto.getColor());
@@ -71,6 +73,7 @@ public class ItemMapper {
 			itemDto.setId(item.getId().toString());
 			itemDto.setItemName(item.getItemName());
 			itemDto.setDescription(item.getDescription());
+			itemDto.setImageUrl(item.getImageUrl());
 			itemDto.setColor(item.getColor());
 			itemDto.setProductId(item.getProductId());
 			itemDto.setQuantity(itemsStockDto.stream().filter(stock -> stock.getItemId().equals(item.getId().toString()))

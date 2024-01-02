@@ -15,6 +15,8 @@ public class Item {
 	private String itemName;
 	
 	private String description;
+	
+	private String imageUrl = "./assets/images/";
 
 	private String color;
 	
@@ -23,10 +25,6 @@ public class Item {
 	private String itemSku;
 	
 	private BigDecimal price;
-	
-	
-	
-	
 	
 	public BigDecimal getPrice() {
 		return price;
@@ -84,6 +82,14 @@ public class Item {
 	}
 	public void setItemSku(String itemSku) {
 		this.itemSku = itemSku;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		
+		this.imageUrl = this.imageUrl + imageUrl;
 	}
 	
 

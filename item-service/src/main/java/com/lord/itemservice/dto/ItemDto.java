@@ -9,6 +9,8 @@ public class ItemDto {
 	private String itemName;
 	
 	private String description;
+	
+	private String imageUrl;
 
 	private String color;
 	
@@ -19,6 +21,8 @@ public class ItemDto {
 	private String itemSku;
 	
 	private BigDecimal price;
+	
+	private BigDecimal priceByMaxShare;
 	
 	
 	
@@ -83,6 +87,21 @@ public class ItemDto {
 	}
 	public void setItemSku(String itemSku) {
 		this.itemSku = itemSku;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	public BigDecimal getPriceByMaxShare() {
+		return priceByMaxShare;
+	}
+	
+	public void serPriceByMaxShare(BigDecimal priceByMaxShare) {
+		this.priceByMaxShare = priceByMaxShare;
 	}
 	
 	
