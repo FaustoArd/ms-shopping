@@ -1,5 +1,8 @@
 package com.lord.itemmanagementservice.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +41,14 @@ public class ItemManagementMapper {
 		itemManagement.setPriceByMaxShare(itemManagement.getPriceByMaxShare());
 		itemManagement.setInterest(itemManagement.getInterest());
 		return itemManagement;
+	}
+	
+	public List<ItemManagementDto> toItemsManagementDto(List<ItemManagement> itemsManagement){
+		if(itemsManagement==null) {
+			return null;
+		}
+		List<ItemManagementDto> itemsManagementDto = itemsManagement.stream().map(this::toItemManagementDto).collect(Collectors.toList());
+		return itemsManagementDto;
 	}
 	
 
