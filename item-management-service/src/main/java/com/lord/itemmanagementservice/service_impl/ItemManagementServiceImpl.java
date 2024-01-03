@@ -12,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lord.itemmanagementservice.dto.ItemManagementDto;
+import com.lord.itemmanagementservice.dto.ItemManagementShareResponse;
+import com.lord.itemmanagementservice.mapper.ItemManagementMapper;
 import com.lord.itemmanagementservice.model.ItemManagement;
-import com.lord.itemmanagementservice.repository.ItemManagementRepository;
 import com.lord.itemmanagementservice.service.ItemManagementService;
-
+import com.lord.itemmanagementservice.service.ItemManagementServiceDao;
 @Service
 public class ItemManagementServiceImpl implements ItemManagementService {
 	
@@ -23,11 +24,17 @@ public class ItemManagementServiceImpl implements ItemManagementService {
 			new BigDecimal(18));
 	
 	@Autowired
-	private final ItemManagementRepository itemManagementRepository;
+	private final ItemManagementServiceDao itemManagementServiceDao;
 	
-	public ItemManagementServiceImpl(ItemManagementRepository itemManagementRepository) {
-		this.itemManagementRepository = itemManagementRepository;
+	@Autowired
+	private final ItemManagementMapper itemManagementMapper;
+	
+	public ItemManagementServiceImpl(ItemManagementServiceDao itemManagementServiceDao,ItemManagementMapper itemManagementMapper) {
+		this.itemManagementServiceDao = itemManagementServiceDao;
+		this.itemManagementMapper = itemManagementMapper;
 	}
+	
+	
 
 	@Override
 	public BigDecimal calculatePriceByMaxShare(BigDecimal price, int maxShare, BigDecimal interest) {
@@ -53,26 +60,23 @@ public class ItemManagementServiceImpl implements ItemManagementService {
 		return prices;
 	}
 
-	@Override
-	public List<ItemManagement> findByProductId(Long productId) {
-		return itemManagementRepository.findByProductId(productId);
-	}
+
 
 	@Override
-	public List<ItemManagement> findAllByItemId(List<ObjectId> itemId) {
-	return itemManagementRepository.findAllByItemId(itemId);
+	public List<ItemManagementShareResponse> findByItemIdAndCalculateShares(List<ObjectId> itemId) {
+		List<ItemManagementShareResponse> itemShares = itemManagementServiceDao.findAllByItemId(itemId).stream()
+				.map(item -> {
+				ItemManagementShareResponse itemManagementShareResponse = new ItemManagementShareResponse();
+				itemManagementShareResponse.setItemId(item.getItemId().toString());
+				itemManagementShareResponse.setMaxShare(item.getMaxShare());
+				itemManagementShareResponse.setPriceByMaxShare(calculatePriceByMaxShare(item.getItemPrice(), item.getMaxShare(), item.getInterest()));
+				return itemManagementShareResponse;
+				}).toList();
+		
+		return itemShares;
+	
 	}
 
-	@Override
-	public ItemManagement save(ItemManagementDto itemManagementDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ItemManagement findByItemId(ObjectId itemId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

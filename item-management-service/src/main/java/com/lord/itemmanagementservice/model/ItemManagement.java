@@ -18,6 +18,8 @@ public class ItemManagement {
 	
 	private Long productId;
 	
+	private BigDecimal itemPrice;
+	
 	private int maxShare;
 	
 	private BigDecimal priceByMaxShare;
@@ -55,6 +57,13 @@ public class ItemManagement {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+	
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 
 	public int getMaxShare() {

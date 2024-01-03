@@ -7,6 +7,7 @@ import java.util.Map;
 import org.bson.types.ObjectId;
 
 import com.lord.itemmanagementservice.dto.ItemManagementDto;
+import com.lord.itemmanagementservice.dto.ItemManagementShareResponse;
 import com.lord.itemmanagementservice.model.ItemManagement;
 
 public interface ItemManagementService {
@@ -15,12 +16,8 @@ public interface ItemManagementService {
 	
 	public Map<Integer,BigDecimal> calculatePricesByShare(BigDecimal price,int maxShare, BigDecimal interest);
 	
-	public List<ItemManagement> findByProductId(Long productId);
+	public List<ItemManagementShareResponse> findByItemIdAndCalculateShares(List<ObjectId> itemId);
 	
-	public List<ItemManagement> findAllByItemId(List<ObjectId> itemId);
-	
-	public ItemManagement save(ItemManagementDto itemManagementDto);
-	
-	public ItemManagement findByItemId(ObjectId itemId);
+
 
 }

@@ -16,6 +16,8 @@ public class ItemManagementDto {
 	
 	private int maxShare;
 	
+	private BigDecimal itemPrice;
+	
 	private BigDecimal priceByMaxShare;
 	
 	private Map<Integer, BigDecimal> pricesByShare;
@@ -44,6 +46,15 @@ public class ItemManagementDto {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+	
+
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
 	}
 
 	public int getMaxShare() {
