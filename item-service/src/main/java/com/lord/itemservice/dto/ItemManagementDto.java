@@ -1,20 +1,14 @@
-package com.lord.itemmanagementservice.model;
+package com.lord.itemservice.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "item_management")
-public class ItemManagement {
+public class ItemManagementDto {
 	
-	@Id
-	private ObjectId id;
+	private String id;
 	
-	private ObjectId itemId;
+	private String itemId;
 	
 	private Long productId;
 	
@@ -22,30 +16,23 @@ public class ItemManagement {
 	
 	private BigDecimal priceByMaxShare;
 	
-	private Map<Integer, BigDecimal> pricesByShare;
+	private List<BigDecimal> pricesByShare;
 	
 	private BigDecimal interest;
-	
-	
 
-	public ItemManagement() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public ObjectId getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(ObjectId itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
@@ -73,11 +60,11 @@ public class ItemManagement {
 		this.priceByMaxShare = priceByMaxShare;
 	}
 
-	public Map<Integer, BigDecimal> getPricesByShare() {
+	public List<BigDecimal> getPricesByShare() {
 		return pricesByShare;
 	}
 
-	public void setPricesByShare(Map<Integer, BigDecimal> pricesByShare) {
+	public void setPricesByShare(List<BigDecimal> pricesByShare) {
 		this.pricesByShare = pricesByShare;
 	}
 
@@ -90,7 +77,4 @@ public class ItemManagement {
 	}
 	
 	
-	
-	
-
 }

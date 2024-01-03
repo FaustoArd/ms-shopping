@@ -2,6 +2,8 @@ package com.lord.itemmanagementservice.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +24,9 @@ public class ItemManagementController {
 	}
 	
 	@GetMapping("/calculate_prices_by_share")
-	ResponseEntity<List<BigDecimal>> calculatePricesbyShare(@RequestParam("price")BigDecimal price, @RequestParam("maxShare")int maxShare,
+	ResponseEntity<Map<Integer, BigDecimal>> calculatePricesbyShare(@RequestParam("price")BigDecimal price, @RequestParam("maxShare")int maxShare,
 			@RequestParam("interest")BigDecimal interest){
-		List<BigDecimal> prices = itemManagementService.calculatePricesByShare(price, maxShare, interest);
+		Map<Integer, BigDecimal> prices = itemManagementService.calculatePricesByShare(price, maxShare, interest);
 		return ResponseEntity.ok(prices);
 	}
 	

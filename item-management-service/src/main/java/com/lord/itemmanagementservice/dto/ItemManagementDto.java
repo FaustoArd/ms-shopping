@@ -2,13 +2,15 @@ package com.lord.itemmanagementservice.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
 import org.bson.types.ObjectId;
 
-public class ItemDto {
+public class ItemManagementDto {
 	
-	private ObjectId id;
+	private String id;
 	
-	private ObjectId itemId;
+	private String itemId;
 	
 	private Long productId;
 	
@@ -16,23 +18,23 @@ public class ItemDto {
 	
 	private BigDecimal priceByMaxShare;
 	
-	private List<BigDecimal> pricesByShare;
+	private Map<Integer, BigDecimal> pricesByShare;
 	
 	private BigDecimal interest;
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public ObjectId getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(ObjectId itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
@@ -60,11 +62,11 @@ public class ItemDto {
 		this.priceByMaxShare = priceByMaxShare;
 	}
 
-	public List<BigDecimal> getPricesByShare() {
+	public Map<Integer, BigDecimal> getPricesByShare() {
 		return pricesByShare;
 	}
 
-	public void setPricesByShare(List<BigDecimal> pricesByShare) {
+	public void setPricesByShare(Map<Integer, BigDecimal> pricesByShare) {
 		this.pricesByShare = pricesByShare;
 	}
 

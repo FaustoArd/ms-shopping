@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 
 import com.lord.itemservice.dto.ItemDto;
 import com.lord.itemservice.dto.ItemDtoOrderResponse;
+import com.lord.itemservice.dto.ItemManagementDto;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.model.Item;
 
@@ -29,6 +30,8 @@ public interface ItemService {
 	public ItemDtoOrderResponse findByIdToPlaceOrder(String itemId);
 	
 	public List<ItemDto> findBySearch(String search);
+	
+	public ItemManagementDto findItemsSharePrice();
 	
 
 	

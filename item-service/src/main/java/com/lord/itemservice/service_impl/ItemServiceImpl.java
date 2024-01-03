@@ -16,6 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 import com.lord.itemservice.dto.ItemDto;
 import com.lord.itemservice.dto.ItemDtoOrderResponse;
+import com.lord.itemservice.dto.ItemManagementDto;
 import com.lord.itemservice.dto.ItemStockDto;
 import com.lord.itemservice.mapper.ItemMapper;
 import com.lord.itemservice.model.Item;
@@ -157,6 +158,10 @@ public class ItemServiceImpl implements ItemService {
 		Example<Item> example = Example.of(item,matcher);
 		List<Item> items = itemRepository.findAll(example);
 		return itemMapper.toItemsDto(items);
+	}
+	
+	public ItemManagementDto findItemsSharePrice() {
+		return null;
 	}
 
 }
