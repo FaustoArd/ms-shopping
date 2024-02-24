@@ -1,0 +1,12 @@
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\utils\RandomUUIDGenerator.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\WebClientConfig.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\exception\HandleProductException.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\mapper\ProductMapper.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\dto\StockDto.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\repository\ProductRepository.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\model\Product.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\controller\ProductController.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\ProductServiceApp.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\service\ProductService.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\service_impl\ProductServiceImpl.java
+D:\workspaces\ms-practice1\msshop\product-service\src\main\java\com\lord\productservice\dto\ProductDto.java

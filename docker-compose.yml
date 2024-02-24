@@ -1,0 +1,55 @@
+
+services:
+  discovery-server: 
+    image: discovery-server
+    container_name: discovery-server
+    
+    ports:
+      - "8761:80"
+    expose: 
+      -  "8761:80"
+      
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery-server:8761/eureka
+    ports: 
+      -  "8090:80"
+    expose:
+      -  "8090:80"
+    depends_on:
+    -  discovery-server
+    
+  product-service:
+    image: product-service
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://discovery-server:8761/eureka
+      - DATABASE_URL=jdbc:postgresql://postgres_db:5432/ms-shopp
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=pta1919az
+    ports:
+    -  "0:80"
+    depends_on:
+    -  api-gateway
+    - postgres_db
+    
+  postgres_db: 
+    container_name: postgres_db
+    image: postgres
+    ports:
+      - 5432:80
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: pta1919az
+       POSTGRES_DB: postgres
+    
+    
+  
+      
+      
+ 
+   
+ 

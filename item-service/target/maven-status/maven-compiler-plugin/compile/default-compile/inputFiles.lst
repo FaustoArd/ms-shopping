@@ -1,0 +1,12 @@
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\model\Item.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\repository\ItemRepository.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\dto\ItemDto.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\ItemServiceApp.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\service\ItemService.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\mapper\ItemMapper.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\configuration\MongoDbConfig.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\dto\ItemStockDto.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\controller\ItemController.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\dto\ItemDtoOrderResponse.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\service_impl\ItemServiceImpl.java
+D:\workspaces\ms-practice1\msshop\item-service\src\main\java\com\lord\itemservice\exception\HandleItemException.java
